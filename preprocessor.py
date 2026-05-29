@@ -21,11 +21,12 @@ def preprocess(data):
         entry = re.split(r'([\w\W]+?):\s', message)
 
         if entry[1:]:
+
             users.append(entry[1])
             messages_list.append(entry[2])
 
         else:
-            users.append("group_notification")
+            users.append('group_notification')
             messages_list.append(entry[0])
 
     df['user'] = users

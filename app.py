@@ -2,9 +2,16 @@ import streamlit as st
 import preprocessor
 import helper
 
+st.set_page_config(
+    page_title="WhatsApp Chat Analyzer",
+    layout="wide"
+)
+
 st.title("WhatsApp Chat Analyzer")
 
-uploaded_file = st.file_uploader("Choose a chat file")
+uploaded_file = st.file_uploader(
+    "Choose a WhatsApp chat file"
+)
 
 if uploaded_file is not None:
 
@@ -14,18 +21,59 @@ if uploaded_file is not None:
 
     df = preprocessor.preprocess(data)
 
+    user_list = df['user'].unique().tolist()
+
+    if 'group_notification' in user_list:
+        user_list.remove('group_notification')
+
+    user_list.sort()
+
+    user_list.insert(0, "Overall")
+
+    selected_user = st.sidebar.selectbox(
+        "Show analysis for",
+        user_list
+    )
+
+    st.title("Chat Preview")
+
     st.dataframe(df)
 
-    num_messages, words = helper.fetch_stats('Overall', df)
+    (
+        num_messages,
+        words,
+        media_messages,
+        num_links
+    ) = helper.fetch_stats(selected_user, df)
 
-st.title("Top Statistics")
+    st.title("Top Statistics")
 
-col1, col2 = st.columns(2)
+    col1, col2, col3, col4 = st.columns(4)
 
-with col1:
-    st.header("Total Messages")
-    st.title(num_messages)
+    with col1:
+        st.header("Messages")
+        st.title(num_messages)
 
-with col2:
-    st.header("Total Words")
-    st.title(words)
+    with col2:
+        st.header("Words")
+        st.title(words)
+
+    with col3:
+        st.header("Media")
+        st.title(media_messages)
+
+    with col4:
+        st.header("Links")
+        st.title(num_links)
+
+    st.title("Most Busy Users")
+
+    if selected_user == 'Overall':
+
+        st.title("Most Busy Users")
+
+        x, new_df = helper.most_busy_users(df)
+
+        st.bar_chart(x)
+
+        st.dataframe(new_df)
