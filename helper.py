@@ -1,4 +1,5 @@
 from urlextract import URLExtract
+from collections import Counter
 
 extract = URLExtract()
 
@@ -45,3 +46,23 @@ def most_busy_users(df):
     percent_df.columns = ['name', 'percent']
 
     return x, percent_df
+
+def fetch_link_domains(df):
+
+    links = []
+
+    for message in df['message']:
+        links.extend(extract.find_urls(message))
+
+    domains = []
+
+    for link in links:
+
+        try:
+            domain = link.split('/')[2]
+            domains.append(domain)
+
+        except:
+            pass
+
+    return Counter(domains).most_common(10)

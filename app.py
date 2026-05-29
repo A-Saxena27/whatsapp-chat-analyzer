@@ -1,6 +1,12 @@
 import streamlit as st
+import matplotlib.pyplot as plt
 import preprocessor
 import helper
+
+st.sidebar.title("WhatsApp Analyzer")
+st.markdown(
+    "Analyze WhatsApp chats with interactive insights and visualizations."
+)
 
 st.set_page_config(
     page_title="WhatsApp Chat Analyzer",
@@ -51,19 +57,19 @@ if uploaded_file is not None:
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        st.header("Messages")
+        st.subheader("Messages")
         st.title(num_messages)
 
     with col2:
-        st.header("Words")
+        st.subheader("Words")
         st.title(words)
 
     with col3:
-        st.header("Media")
+        st.subheader("Media")
         st.title(media_messages)
 
     with col4:
-        st.header("Links")
+        st.subheader("Links")
         st.title(num_links)
 
     st.title("Most Busy Users")
@@ -74,6 +80,46 @@ if uploaded_file is not None:
 
         x, new_df = helper.most_busy_users(df)
 
-        st.bar_chart(x)
+        fig, ax = plt.subplots()
 
+        col1, col2 = st.columns(2)
+
+        with col1:
+                st.dataframe(new_df)
+
+        with col2:
+                ax.pie(
+        new_df['percent'],
+        labels=new_df['name'],
+        autopct="%0.2f"
+        )
+
+        st.pyplot(fig)
         st.dataframe(new_df)
+
+        st.title("Most Shared Domains")
+
+domain_data = helper.fetch_link_domains(df)
+
+if domain_data:
+
+    domain_names = [i[0] for i in domain_data]
+    domain_counts = [i[1] for i in domain_data]
+
+    domain_df = {
+        "Domain": domain_names,
+        "Count": domain_counts
+    }
+
+    st.bar_chart(domain_df, x="Domain", y="Count")
+
+    st.markdown("---")
+
+    st.subheader("Chat Summary")
+
+st.write(f"""
+- Total Messages: {num_messages}
+- Total Words: {words}
+- Media Shared: {media_messages}
+- Links Shared: {num_links}
+""")
