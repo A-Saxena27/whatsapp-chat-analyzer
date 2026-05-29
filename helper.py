@@ -1,5 +1,7 @@
 from urlextract import URLExtract
 from collections import Counter
+import pandas as pd
+import emoji
 
 extract = URLExtract()
 
@@ -89,3 +91,25 @@ def monthly_timeline(selected_user, df):
     timeline['time'] = time
 
     return timeline
+
+def emoji_helper(selected_user, df):
+
+    if selected_user != 'Overall':
+        df = df[df['user'] == selected_user]
+
+    emojis = []
+
+    for message in df['message']:
+
+        for char in message:
+
+            if char in emoji.EMOJI_DATA:
+                emojis.append(char)
+
+    emoji_df = pd.DataFrame(
+        Counter(emojis).most_common(
+            len(Counter(emojis))
+        )
+    )
+
+    return emoji_df
