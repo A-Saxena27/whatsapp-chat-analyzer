@@ -3,17 +3,18 @@ import matplotlib.pyplot as plt
 import preprocessor
 import helper
 
-st.sidebar.title("WhatsApp Analyzer")
-st.markdown(
-    "Analyze WhatsApp chats with interactive insights and visualizations."
-)
-
 st.set_page_config(
     page_title="WhatsApp Chat Analyzer",
     layout="wide"
 )
 
+st.sidebar.title("WhatsApp Analyzer")
+
 st.title("WhatsApp Chat Analyzer")
+
+st.markdown(
+    "Analyze WhatsApp chats with interactive insights and visualizations."
+)
 
 uploaded_file = st.file_uploader(
     "Choose a WhatsApp chat file"
@@ -72,8 +73,26 @@ if uploaded_file is not None:
         st.subheader("Links")
         st.title(num_links)
 
-    st.title("Most Busy Users")
+    # Monthly Timeline
+    st.title("Monthly Timeline")
 
+    timeline = helper.monthly_timeline(
+        selected_user,
+        df
+    )
+
+    fig, ax = plt.subplots()
+
+    ax.plot(
+        timeline['time'],
+        timeline['message']
+    )
+
+    plt.xticks(rotation='vertical')
+
+    st.pyplot(fig)
+
+    # Most Busy Users
     if selected_user == 'Overall':
 
         st.title("Most Busy Users")
@@ -85,41 +104,46 @@ if uploaded_file is not None:
         col1, col2 = st.columns(2)
 
         with col1:
-                st.dataframe(new_df)
+            st.dataframe(new_df)
 
         with col2:
-                ax.pie(
-        new_df['percent'],
-        labels=new_df['name'],
-        autopct="%0.2f"
+            ax.pie(
+                new_df['percent'],
+                labels=new_df['name'],
+                autopct="%0.2f"
+            )
+
+            st.pyplot(fig)
+
+    # Shared Domains
+    st.title("Most Shared Domains")
+
+    domain_data = helper.fetch_link_domains(df)
+
+    if domain_data:
+
+        domain_names = [i[0] for i in domain_data]
+        domain_counts = [i[1] for i in domain_data]
+
+        domain_df = {
+            "Domain": domain_names,
+            "Count": domain_counts
+        }
+
+        st.bar_chart(
+            domain_df,
+            x="Domain",
+            y="Count"
         )
 
-        st.pyplot(fig)
-        st.dataframe(new_df)
-
-        st.title("Most Shared Domains")
-
-domain_data = helper.fetch_link_domains(df)
-
-if domain_data:
-
-    domain_names = [i[0] for i in domain_data]
-    domain_counts = [i[1] for i in domain_data]
-
-    domain_df = {
-        "Domain": domain_names,
-        "Count": domain_counts
-    }
-
-    st.bar_chart(domain_df, x="Domain", y="Count")
-
+    # Chat Summary
     st.markdown("---")
 
     st.subheader("Chat Summary")
 
-st.write(f"""
-- Total Messages: {num_messages}
-- Total Words: {words}
-- Media Shared: {media_messages}
-- Links Shared: {num_links}
-""")
+    st.write(f"""
+    - Total Messages: {num_messages}
+    - Total Words: {words}
+    - Media Shared: {media_messages}
+    - Links Shared: {num_links}
+    """)
