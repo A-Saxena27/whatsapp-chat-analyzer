@@ -15,7 +15,17 @@ def preprocess(data):
     })
 
     # convert date
-    df['message_date'] = pd.to_datetime(df['message_date'])
+    df['message_date'] = (
+    df['message_date']
+    .str.replace('\u202f', ' ', regex=False)
+    .str.strip()
+)
+
+    df['message_date'] = pd.to_datetime(
+    df['message_date'],
+    format='%d/%m/%y, %I:%M %p -',
+    errors='coerce'
+)
 
     users = []
     messages_list = []
