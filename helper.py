@@ -1,10 +1,9 @@
 
-from sklearn.feature_extraction.text import CountVectorizer
-from textblob import TextBlob
+from sklearn.feature_extraction.text import CountVectorizer  # type: ignore[import]
+from textblob import TextBlob  # type: ignore[import]
 from urlextract import URLExtract
 from collections import Counter
 from wordcloud import WordCloud
-
 import pandas as pd
 import emoji
 
