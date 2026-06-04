@@ -1,100 +1,127 @@
-import AnimatedBackground from "../components/AnimatedBackground";
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import Particles from "../components/wrapped/shared/Particles";
+import Neon from "../components/wrapped/shared/Neon";
+import Glass from "../components/common/GlassCard";
+interface LandingProps {
+  onUpload: () => void;
+  onDemo: () => void;
+}
 
-export default function Landing() {
-  const navigate = useNavigate();
+export default function Landing({ onUpload, onDemo }: LandingProps) {
   return (
-    <div className="relative min-h-screen bg-black overflow-hidden flex items-center justify-center">
-      <AnimatedBackground />
-      <motion.div
-        initial={{
-          opacity: 0,
-          y: 50,
-          scale: 0.9,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-          scale: 1,
-        }}
-        transition={{
-          duration: 0.8,
-        }}
-        className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-12"
-      >
-        <h1 className="text-6xl font-black text-white">
-          WHATSAPP
-          <br />
-          <span
-            className="
-  bg-gradient-to-r
-  from-green-400
-  via-purple-500
-  to-pink-500
-  bg-clip-text
-  text-transparent
-"
+    <div className="fixed inset-0 bg-black overflow-hidden flex flex-col items-center justify-center">
+      {/* Animated background blobs */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div
+          className="absolute w-[600px] h-[600px] rounded-full blur-3xl opacity-15 animate-blob1"
+          style={{
+            background: "radial-gradient(#25D366, transparent)",
+            top: "-20%",
+            left: "-20%",
+          }}
+        />
+        <div
+          className="absolute w-[500px] h-[500px] rounded-full blur-3xl opacity-10 animate-blob2"
+          style={{
+            background: "radial-gradient(#FF2D75, transparent)",
+            bottom: "-20%",
+            right: "-20%",
+          }}
+        />
+        <div
+          className="absolute w-[400px] h-[400px] rounded-full blur-3xl opacity-8 animate-blob3"
+          style={{
+            background: "radial-gradient(#B84CFF, transparent)",
+            top: "30%",
+            right: "10%",
+          }}
+        />
+      </div>
+      <Particles
+        emojis={["💬", "❤️", "😂", "🥰", "✨", "💚", "🔥", "👀", "😍", "💯"]}
+        count={22}
+      />
+
+      <div className="relative z-10 flex flex-col items-center gap-6 px-6 text-center max-w-sm">
+        {/* Logo */}
+        <div className="flex items-center gap-3 mb-2">
+          <div
+            className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl"
+            style={{
+              background: "linear-gradient(135deg,#25D366,#128C7E)",
+              boxShadow: "0 0 30px #25D36680",
+            }}
           >
-            WRAPPED
-          </span>
-        </h1>
-
-        <p className="text-zinc-400 mt-4">
-          Turn your chats into unforgettable insights.
-        </p>
-
-        <div className="flex gap-4 mt-10">
-          <button
-            onClick={() => navigate("/upload")}
-            className="
-      px-8 py-4
-      rounded-2xl
-      bg-[#25D366]
-      text-black
-      font-bold
-      text-lg
-      shadow-[0_0_30px_rgba(37,211,102,0.5)]
-      hover:scale-105
-      transition-all
-      duration-300
-    "
-          >
-            Upload Chat
-          </button>
-
-          <button
-            className="
-      px-8 py-4
-      rounded-2xl
-      border
-      border-white/20
-      bg-white/5
-      backdrop-blur-md
-      text-white
-      text-lg
-      hover:bg-white/10
-      transition-all
-      duration-300
-    "
-          >
-            Try Demo Chat
-          </button>
-        </div>
-        <div className="grid grid-cols-3 gap-6 mt-10">
-          <div>
-            <h3 className="text-2xl font-bold text-white">98%</h3>
-
-            <p className="text-zinc-500 text-sm">AI Accuracy</p>
+            💬
           </div>
-
-          <div>
-            <h3 className="text-2xl font-bold text-white">2025</h3>
-
-            <p className="text-zinc-500 text-sm">Wrapped Edition</p>
+          <div className="text-left">
+            <div className="text-xs text-white/40 font-mono tracking-widest uppercase">
+              whatsapp
+            </div>
+            <div className="text-xl font-black text-white tracking-tight leading-none">
+              WRAPPED
+            </div>
           </div>
         </div>
-      </motion.div>
+
+        {/* Glassmorphism hero card */}
+        <Glass className="w-full p-8 flex flex-col items-center gap-5">
+          <div className="font-black text-5xl text-white leading-none tracking-tight">
+            Turn your <Neon color="#25D366">chats</Neon> into
+            <br />
+            <span
+              style={{
+                background: "linear-gradient(135deg,#FF2D75,#B84CFF)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              unforgettable
+            </span>
+            <br />
+            insights.
+          </div>
+          <div className="text-white/50 text-sm leading-relaxed">
+            Spotify Wrapped, but for your WhatsApp. Discover your texting
+            personality, love score, and more ✨
+          </div>
+          <div className="flex flex-col gap-3 w-full mt-2">
+            <button
+              onClick={onUpload}
+              className="w-full py-4 rounded-2xl font-black text-black text-base"
+              style={{
+                background: "linear-gradient(135deg,#25D366,#128C7E)",
+                boxShadow: "0 0 25px #25D36660",
+              }}
+            >
+              📁 Upload Chat
+            </button>
+            <button
+              onClick={onDemo}
+              className="w-full py-3 rounded-2xl font-bold text-white/80 text-sm border border-white/20"
+              style={{ background: "rgba(255,255,255,0.06)" }}
+            >
+              ✨ Try Demo Chat
+            </button>
+          </div>
+        </Glass>
+
+        {/* Feature pills */}
+        <div className="flex flex-wrap gap-2 justify-center">
+          {[
+            "🔒 Private",
+            "📱 Mobile-first",
+            "✨ AI Insights",
+            "📊 Deep Stats",
+          ].map((f) => (
+            <span
+              key={f}
+              className="text-xs text-white/50 bg-white/5 border border-white/10 rounded-full px-3 py-1"
+            >
+              {f}
+            </span>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

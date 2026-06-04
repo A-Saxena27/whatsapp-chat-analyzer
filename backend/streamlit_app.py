@@ -2,9 +2,8 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
-import preprocessor
-import helper
-
+import preprocessor as preprocessor
+import helper as helper
 st.set_page_config(
     page_title="WhatsApp Chat Analyzer",
     layout="wide"

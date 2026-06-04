@@ -1,43 +1,25 @@
-import { motion } from "framer-motion";
+import Particles from "../wrapped/shared/Particles";
+import Glass from "../common/GlassCard";
+import Counter from "../wrapped/shared/Counter";
 
-type EmojiCardProps = {
-  emoji: string;
-  count: number;
-};
-
-export default function EmojiCard({ emoji, count }: EmojiCardProps) {
+export default function EmojiCard({ data }: { data: any }) {
   return (
-    <div
-      className="
-      min-h-screen
-      flex
-      items-center
-      justify-center
-      bg-gradient-to-br
-      from-[#050505]
-      via-[#151515]
-      to-[#B84CFF]
-    "
-    >
-      <motion.div
-        initial={{
-          y: 50,
-          opacity: 0,
-        }}
-        animate={{
-          y: 0,
-          opacity: 1,
-        }}
-        className="
-          text-center
-        "
-      >
-        <div className="text-[10rem]">{emoji}</div>
-
-        <h2 className="text-white text-4xl font-bold">{count} Times</h2>
-
-        <p className="text-gray-300 text-xl mt-4">Your Favorite Emoji</p>
-      </motion.div>
+    <div className="flex flex-col items-center justify-center h-full gap-6 text-center">
+      <Particles emojis={[data.favoriteEmoji, "💫", "✨"]} count={20} />
+      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">
+        Emoji Personality
+      </div>
+      <div className="text-9xl animate-bounce-slow">{data.favoriteEmoji}</div>
+      <Glass className="px-8 py-4">
+        <div className="text-5xl font-black text-white mb-1">
+          <Counter target={data.favoriteEmojiCount} />
+        </div>
+        <div className="text-white/60 text-sm">times used</div>
+      </Glass>
+      <div className="text-white/40 text-sm">
+        Your spirit emoji is{" "}
+        <span className="text-yellow-300">{data.favoriteEmoji}</span>
+      </div>
     </div>
   );
 }

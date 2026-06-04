@@ -21,7 +21,10 @@ const DEMO = {
   youStartsChat: 62,
   partnerStartsChat: 38,
   mostActiveTime: "11 PM – 1 AM",
-  mostRomanticMsg: { text: "I literally think about you every single day, you know that? You make everything better just by existing 💚", date: "March 14, 2024" },
+  mostRomanticMsg: {
+    text: "I literally think about you every single day, you know that? You make everything better just by existing 💚",
+    date: "March 14, 2024",
+  },
   peakMonth: "February 2024",
   monthlyData: [
     { month: "Jan", you: 1200, partner: 980 },
@@ -58,15 +61,54 @@ const DEMO = {
     { subject: "Passion", A: 93 },
   ],
   achievements: [
-    { icon: "🏆", title: "Night Owl", desc: "Most active after midnight", unlocked: true },
-    { icon: "🔥", title: "Streak Master", desc: "30-day chat streak", unlocked: true },
-    { icon: "😂", title: "Meme Lord", desc: "1000+ media files sent", unlocked: true },
-    { icon: "❤️", title: "Heart Collector", desc: "Used ❤️ 500+ times", unlocked: true },
-    { icon: "⚡", title: "Speed Typer", desc: "Avg reply < 3 minutes", unlocked: false },
-    { icon: "🌟", title: "Consistency King", desc: "Messaged every day", unlocked: false },
+    {
+      icon: "🏆",
+      title: "Night Owl",
+      desc: "Most active after midnight",
+      unlocked: true,
+    },
+    {
+      icon: "🔥",
+      title: "Streak Master",
+      desc: "30-day chat streak",
+      unlocked: true,
+    },
+    {
+      icon: "😂",
+      title: "Meme Lord",
+      desc: "1000+ media files sent",
+      unlocked: true,
+    },
+    {
+      icon: "❤️",
+      title: "Heart Collector",
+      desc: "Used ❤️ 500+ times",
+      unlocked: true,
+    },
+    {
+      icon: "⚡",
+      title: "Speed Typer",
+      desc: "Avg reply < 3 minutes",
+      unlocked: false,
+    },
+    {
+      icon: "🌟",
+      title: "Consistency King",
+      desc: "Messaged every day",
+      unlocked: false,
+    },
   ],
-  greenFlags: ["Lightning fast replies ⚡", "Consistent communication 💬", "Sends good morning texts ☀️", "Always checks in 💚"],
-  redFlags: ["Occasional late replies 🌙", "Read receipts on but silent 👀", "Short replies sometimes 📝"],
+  greenFlags: [
+    "Lightning fast replies ⚡",
+    "Consistent communication 💬",
+    "Sends good morning texts ☀️",
+    "Always checks in 💚",
+  ],
+  redFlags: [
+    "Occasional late replies 🌙",
+    "Read receipts on but silent 👀",
+    "Short replies sometimes 📝",
+  ],
 };
 
 // ─── Animated counter ─────────────────────────────────────────────────────────
@@ -83,7 +125,13 @@ function Counter({ target, duration = 1800, prefix = "", suffix = "" }) {
     };
     requestAnimationFrame(step);
   }, [target, duration]);
-  return <>{prefix}{val.toLocaleString()}{suffix}</>;
+  return (
+    <>
+      {prefix}
+      {val.toLocaleString()}
+      {suffix}
+    </>
+  );
 }
 
 // ─── Floating particles ───────────────────────────────────────────────────────
@@ -97,7 +145,7 @@ function Particles({ emojis = ["💚", "💬", "❤️", "✨", "🥰"], count =
       size: rand(16, 36),
       dur: rand(6, 14),
       delay: rand(0, 6),
-    }))
+    })),
   ).current;
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -131,7 +179,7 @@ function Confetti() {
       size: rand(6, 14),
       dur: rand(2, 5),
       delay: rand(0, 3),
-    }))
+    })),
   ).current;
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden z-50">
@@ -159,11 +207,17 @@ function StoryProgress({ total, current, onTick }) {
   return (
     <div className="flex gap-1 px-4 pt-4 z-30 relative">
       {Array.from({ length: total }).map((_, i) => (
-        <div key={i} className="flex-1 h-1 rounded-full bg-white/20 overflow-hidden">
+        <div
+          key={i}
+          className="flex-1 h-1 rounded-full bg-white/20 overflow-hidden"
+        >
           {i < current ? (
             <div className="h-full bg-white w-full" />
           ) : i === current ? (
-            <div className="h-full bg-white animate-story-fill" onAnimationEnd={onTick} />
+            <div
+              className="h-full bg-white animate-story-fill"
+              onAnimationEnd={onTick}
+            />
           ) : null}
         </div>
       ))}
@@ -186,7 +240,10 @@ function Glass({ children, className = "", style = {} }) {
 // ─── Neon text ────────────────────────────────────────────────────────────────
 function Neon({ children, color = "#25D366", className = "" }) {
   return (
-    <span className={className} style={{ color, textShadow: `0 0 20px ${color}80, 0 0 60px ${color}40` }}>
+    <span
+      className={className}
+      style={{ color, textShadow: `0 0 20px ${color}80, 0 0 60px ${color}40` }}
+    >
       {children}
     </span>
   );
@@ -202,7 +259,10 @@ function BarChart({ data }) {
         const parH = (d.partner / maxVal) * 100;
         return (
           <div key={i} className="flex-1 flex flex-col items-center gap-0.5">
-            <div className="w-full flex gap-0.5 items-end" style={{ height: "96px" }}>
+            <div
+              className="w-full flex gap-0.5 items-end"
+              style={{ height: "96px" }}
+            >
               <div
                 className="flex-1 rounded-t-sm"
                 style={{
@@ -222,7 +282,9 @@ function BarChart({ data }) {
                 }}
               />
             </div>
-            <span className="text-[8px] text-white/40 font-mono">{d.month}</span>
+            <span className="text-[8px] text-white/40 font-mono">
+              {d.month}
+            </span>
           </div>
         );
       })}
@@ -232,7 +294,9 @@ function BarChart({ data }) {
 
 // ─── Radar chart (pure SVG) ───────────────────────────────────────────────────
 function RadarChart({ data }) {
-  const cx = 110, cy = 110, r = 80;
+  const cx = 110,
+    cy = 110,
+    r = 80;
   const n = data.length;
   const angle = (i) => (Math.PI * 2 * i) / n - Math.PI / 2;
   const pt = (i, radius) => ({
@@ -240,7 +304,8 @@ function RadarChart({ data }) {
     y: cy + radius * Math.sin(angle(i)),
   });
   const gridLevels = [0.25, 0.5, 0.75, 1];
-  const toPath = (pts) => pts.map((p, i) => `${i === 0 ? "M" : "L"}${p.x},${p.y}`).join(" ") + "Z";
+  const toPath = (pts) =>
+    pts.map((p, i) => `${i === 0 ? "M" : "L"}${p.x},${p.y}`).join(" ") + "Z";
 
   const dataPoints = data.map((d, i) => pt(i, (d.A / 100) * r));
   const dataPath = toPath(dataPoints);
@@ -249,17 +314,50 @@ function RadarChart({ data }) {
     <svg width="220" height="220" className="mx-auto">
       {gridLevels.map((lvl) => {
         const pts = data.map((_, i) => pt(i, lvl * r));
-        return <polygon key={lvl} points={pts.map((p) => `${p.x},${p.y}`).join(" ")} fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />;
+        return (
+          <polygon
+            key={lvl}
+            points={pts.map((p) => `${p.x},${p.y}`).join(" ")}
+            fill="none"
+            stroke="rgba(255,255,255,0.1)"
+            strokeWidth="1"
+          />
+        );
       })}
       {data.map((_, i) => {
         const p = pt(i, r);
-        return <line key={i} x1={cx} y1={cy} x2={p.x} y2={p.y} stroke="rgba(255,255,255,0.1)" strokeWidth="1" />;
+        return (
+          <line
+            key={i}
+            x1={cx}
+            y1={cy}
+            x2={p.x}
+            y2={p.y}
+            stroke="rgba(255,255,255,0.1)"
+            strokeWidth="1"
+          />
+        );
       })}
-      <polygon points={dataPoints.map((p) => `${p.x},${p.y}`).join(" ")} fill="rgba(37,211,102,0.2)" stroke="#25D366" strokeWidth="2" style={{ filter: "drop-shadow(0 0 8px #25D36680)" }} />
+      <polygon
+        points={dataPoints.map((p) => `${p.x},${p.y}`).join(" ")}
+        fill="rgba(37,211,102,0.2)"
+        stroke="#25D366"
+        strokeWidth="2"
+        style={{ filter: "drop-shadow(0 0 8px #25D36680)" }}
+      />
       {data.map((d, i) => {
         const p = pt(i, r + 18);
         return (
-          <text key={i} x={p.x} y={p.y} textAnchor="middle" dominantBaseline="middle" fontSize="9" fill="rgba(255,255,255,0.7)" fontFamily="monospace">
+          <text
+            key={i}
+            x={p.x}
+            y={p.y}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fontSize="9"
+            fill="rgba(255,255,255,0.7)"
+            fontFamily="monospace"
+          >
             {d.subject}
           </text>
         );
@@ -270,22 +368,44 @@ function RadarChart({ data }) {
 
 // ─── Donut chart ──────────────────────────────────────────────────────────────
 function Donut({ pct, color = "#25D366", label }) {
-  const r = 40, cx = 50, cy = 50;
+  const r = 40,
+    cx = 50,
+    cy = 50;
   const circ = 2 * Math.PI * r;
   const dash = (pct / 100) * circ;
   return (
     <div className="relative flex flex-col items-center">
       <svg width="100" height="100">
-        <circle cx={cx} cy={cy} r={r} fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="8" />
         <circle
-          cx={cx} cy={cy} r={r} fill="none"
-          stroke={color} strokeWidth="8"
+          cx={cx}
+          cy={cy}
+          r={r}
+          fill="none"
+          stroke="rgba(255,255,255,0.1)"
+          strokeWidth="8"
+        />
+        <circle
+          cx={cx}
+          cy={cy}
+          r={r}
+          fill="none"
+          stroke={color}
+          strokeWidth="8"
           strokeDasharray={`${dash} ${circ}`}
           strokeLinecap="round"
           transform={`rotate(-90 ${cx} ${cy})`}
           style={{ filter: `drop-shadow(0 0 6px ${color})` }}
         />
-        <text x={cx} y={cy + 1} textAnchor="middle" dominantBaseline="middle" fontSize="14" fill="white" fontWeight="bold" fontFamily="monospace">
+        <text
+          x={cx}
+          y={cy + 1}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fontSize="14"
+          fill="white"
+          fontWeight="bold"
+          fontFamily="monospace"
+        >
           {pct}%
         </text>
       </svg>
@@ -323,7 +443,9 @@ function WordCloud({ words }) {
 function Heatmap() {
   const hours = Array.from({ length: 24 }, (_, i) => i);
   const peak = [22, 23, 0, 1];
-  const vals = hours.map((h) => (peak.includes(h) ? rand(0.7, 1) : rand(0, 0.4)));
+  const vals = hours.map((h) =>
+    peak.includes(h) ? rand(0.7, 1) : rand(0, 0.4),
+  );
   return (
     <div className="w-full">
       <div className="flex gap-1 flex-wrap justify-center">
@@ -331,13 +453,22 @@ function Heatmap() {
           <div
             key={h}
             className="rounded-md flex flex-col items-center"
-            style={{ width: 26, height: 26, background: `rgba(37,211,102,${vals[i].toFixed(2)})`, boxShadow: vals[i] > 0.6 ? "0 0 8px #25D36680" : "none" }}
+            style={{
+              width: 26,
+              height: 26,
+              background: `rgba(37,211,102,${vals[i].toFixed(2)})`,
+              boxShadow: vals[i] > 0.6 ? "0 0 8px #25D36680" : "none",
+            }}
             title={`${h}:00`}
           />
         ))}
       </div>
       <div className="flex justify-between mt-2 text-[10px] text-white/40">
-        <span>12 AM</span><span>6 AM</span><span>12 PM</span><span>6 PM</span><span>11 PM</span>
+        <span>12 AM</span>
+        <span>6 AM</span>
+        <span>12 PM</span>
+        <span>6 PM</span>
+        <span>11 PM</span>
       </div>
     </div>
   );
@@ -353,20 +484,32 @@ function Timeline({ data }) {
         const isPeak = d.month === "Feb";
         return (
           <div key={i} className="flex items-center gap-3">
-            <span className="text-[10px] font-mono text-white/50 w-7 shrink-0">{d.month}</span>
+            <span className="text-[10px] font-mono text-white/50 w-7 shrink-0">
+              {d.month}
+            </span>
             <div className="flex-1 h-5 rounded-full bg-white/5 overflow-hidden relative">
               <div
                 className="h-full rounded-full"
                 style={{
                   width: `${pct}%`,
-                  background: isPeak ? "linear-gradient(90deg,#FF2D75,#B84CFF)" : "linear-gradient(90deg,#25D366,#128C7E)",
-                  boxShadow: isPeak ? "0 0 10px #FF2D7580" : "0 0 10px #25D36640",
+                  background: isPeak
+                    ? "linear-gradient(90deg,#FF2D75,#B84CFF)"
+                    : "linear-gradient(90deg,#25D366,#128C7E)",
+                  boxShadow: isPeak
+                    ? "0 0 10px #FF2D7580"
+                    : "0 0 10px #25D36640",
                   transition: "width 1s ease",
                 }}
               />
-              {isPeak && <span className="absolute right-2 top-0 text-[9px] text-white/80 h-full flex items-center">⭐ Peak</span>}
+              {isPeak && (
+                <span className="absolute right-2 top-0 text-[9px] text-white/80 h-full flex items-center">
+                  ⭐ Peak
+                </span>
+              )}
             </div>
-            <span className="text-[10px] font-mono text-white/40 w-10 text-right">{((d.you + d.partner) / 1000).toFixed(1)}k</span>
+            <span className="text-[10px] font-mono text-white/40 w-10 text-right">
+              {((d.you + d.partner) / 1000).toFixed(1)}k
+            </span>
           </div>
         );
       })}
@@ -381,13 +524,26 @@ function Timeline({ data }) {
 function Card1({ data }) {
   return (
     <div className="flex flex-col items-center justify-center h-full gap-6 px-6 text-center">
-      <Particles emojis={["💬","✨","🚀","💚"]} />
-      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">Total Messages</div>
-      <div className="text-8xl font-black text-white leading-none" style={{ textShadow: "0 0 60px #25D36680" }}>
-        <Neon color="#25D366"><Counter target={data.totalMessages} /></Neon>
+      <Particles emojis={["💬", "✨", "🚀", "💚"]} />
+      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">
+        Total Messages
+      </div>
+      <div
+        className="text-8xl font-black text-white leading-none"
+        style={{ textShadow: "0 0 60px #25D36680" }}
+      >
+        <Neon color="#25D366">
+          <Counter target={data.totalMessages} />
+        </Neon>
       </div>
       <Glass className="px-6 py-3">
-        <p className="text-white/70 text-sm">That's roughly <span className="text-green-400 font-bold">{Math.round(data.totalMessages / 365)} messages a day</span> 🤯</p>
+        <p className="text-white/70 text-sm">
+          That's roughly{" "}
+          <span className="text-green-400 font-bold">
+            {Math.round(data.totalMessages / 365)} messages a day
+          </span>{" "}
+          🤯
+        </p>
       </Glass>
       <div className="text-white/30 text-xs">between you & {data.partner}</div>
     </div>
@@ -397,15 +553,32 @@ function Card1({ data }) {
 function Card2({ data }) {
   return (
     <div className="flex flex-col items-center justify-center h-full gap-5 px-4 text-center">
-      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">Messages Timeline</div>
+      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">
+        Messages Timeline
+      </div>
       <Glass className="w-full p-4">
         <div className="flex gap-4 mb-4 text-xs">
-          <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm inline-block" style={{ background: "#25D366" }} /> You</span>
-          <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm inline-block" style={{ background: "#FF2D75" }} /> {data.partner}</span>
+          <span className="flex items-center gap-1">
+            <span
+              className="w-3 h-3 rounded-sm inline-block"
+              style={{ background: "#25D366" }}
+            />{" "}
+            You
+          </span>
+          <span className="flex items-center gap-1">
+            <span
+              className="w-3 h-3 rounded-sm inline-block"
+              style={{ background: "#FF2D75" }}
+            />{" "}
+            {data.partner}
+          </span>
         </div>
         <BarChart data={data.monthlyData} />
       </Glass>
-      <div className="text-white/50 text-xs">Peak month: <span className="text-pink-400 font-bold">{data.peakMonth}</span> 💕</div>
+      <div className="text-white/50 text-xs">
+        Peak month:{" "}
+        <span className="text-pink-400 font-bold">{data.peakMonth}</span> 💕
+      </div>
     </div>
   );
 }
@@ -413,11 +586,19 @@ function Card2({ data }) {
 function Card3({ data }) {
   return (
     <div className="flex flex-col items-center justify-center h-full gap-5 px-4 text-center">
-      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">Most Used Words</div>
+      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">
+        Most Used Words
+      </div>
       <Glass className="w-full p-5">
         <WordCloud words={data.topWords} />
       </Glass>
-      <div className="text-white/40 text-xs">Your top word? <Neon color="#25D366" className="font-bold text-sm">"{data.topWords[0].word}"</Neon> — used {data.topWords[0].count} times 💚</div>
+      <div className="text-white/40 text-xs">
+        Your top word?{" "}
+        <Neon color="#25D366" className="font-bold text-sm">
+          "{data.topWords[0].word}"
+        </Neon>{" "}
+        — used {data.topWords[0].count} times 💚
+      </div>
     </div>
   );
 }
@@ -426,13 +607,20 @@ function Card4({ data }) {
   return (
     <div className="flex flex-col items-center justify-center h-full gap-6 text-center">
       <Particles emojis={[data.favoriteEmoji, "💫", "✨"]} count={20} />
-      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">Emoji Personality</div>
+      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">
+        Emoji Personality
+      </div>
       <div className="text-9xl animate-bounce-slow">{data.favoriteEmoji}</div>
       <Glass className="px-8 py-4">
-        <div className="text-5xl font-black text-white mb-1"><Counter target={data.favoriteEmojiCount} /></div>
+        <div className="text-5xl font-black text-white mb-1">
+          <Counter target={data.favoriteEmojiCount} />
+        </div>
         <div className="text-white/60 text-sm">times used</div>
       </Glass>
-      <div className="text-white/40 text-sm">Your spirit emoji is <span className="text-yellow-300">{data.favoriteEmoji}</span></div>
+      <div className="text-white/40 text-sm">
+        Your spirit emoji is{" "}
+        <span className="text-yellow-300">{data.favoriteEmoji}</span>
+      </div>
     </div>
   );
 }
@@ -440,23 +628,37 @@ function Card4({ data }) {
 function Card5({ data }) {
   return (
     <div className="flex flex-col items-center justify-center h-full gap-6 px-6 text-center">
-      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">Response Time Battle</div>
+      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">
+        Response Time Battle
+      </div>
       <div className="flex gap-6 w-full">
         <Glass className="flex-1 p-5 flex flex-col items-center gap-2">
           <div className="text-2xl">⚡</div>
           <div className="text-xs text-white/50 font-mono uppercase">You</div>
-          <div className="text-2xl font-black text-green-400">{data.youResponseTime}</div>
+          <div className="text-2xl font-black text-green-400">
+            {data.youResponseTime}
+          </div>
           <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
-            <div className="h-full rounded-full bg-green-400 w-4/5" style={{ boxShadow: "0 0 10px #25D366" }} />
+            <div
+              className="h-full rounded-full bg-green-400 w-4/5"
+              style={{ boxShadow: "0 0 10px #25D366" }}
+            />
           </div>
           <div className="text-green-400 text-xs font-bold">⚡ WINNER</div>
         </Glass>
         <Glass className="flex-1 p-5 flex flex-col items-center gap-2">
           <div className="text-2xl">🐢</div>
-          <div className="text-xs text-white/50 font-mono uppercase">{data.partner}</div>
-          <div className="text-2xl font-black text-pink-400">{data.partnerResponseTime}</div>
+          <div className="text-xs text-white/50 font-mono uppercase">
+            {data.partner}
+          </div>
+          <div className="text-2xl font-black text-pink-400">
+            {data.partnerResponseTime}
+          </div>
           <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
-            <div className="h-full rounded-full bg-pink-400 w-2/5" style={{ boxShadow: "0 0 10px #FF2D75" }} />
+            <div
+              className="h-full rounded-full bg-pink-400 w-2/5"
+              style={{ boxShadow: "0 0 10px #FF2D75" }}
+            />
           </div>
           <div className="text-pink-400 text-xs font-bold">🐢 slow</div>
         </Glass>
@@ -469,14 +671,20 @@ function Card5({ data }) {
 function Card6({ data }) {
   return (
     <div className="flex flex-col items-center justify-center h-full gap-5 px-4 text-center">
-      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">Night Owl Analysis</div>
+      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">
+        Night Owl Analysis
+      </div>
       <div className="text-5xl">🌙</div>
       <Glass className="px-8 py-4">
         <div className="text-xl font-black text-white">Most Active Time</div>
-        <Neon color="#B84CFF" className="text-3xl font-black">{data.mostActiveTime}</Neon>
+        <Neon color="#B84CFF" className="text-3xl font-black">
+          {data.mostActiveTime}
+        </Neon>
       </Glass>
       <Glass className="w-full p-4">
-        <div className="text-xs text-white/50 mb-3 font-mono">Hourly Activity Heatmap</div>
+        <div className="text-xs text-white/50 mb-3 font-mono">
+          Hourly Activity Heatmap
+        </div>
         <Heatmap />
       </Glass>
       <div className="text-white/40 text-xs">Certified night owl duo 🦉</div>
@@ -487,15 +695,22 @@ function Card6({ data }) {
 function Card7({ data }) {
   return (
     <div className="flex flex-col items-center justify-center h-full gap-6 px-6 text-center">
-      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">Conversation Starter</div>
+      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">
+        Conversation Starter
+      </div>
       <div className="text-4xl">💬</div>
       <div className="flex gap-8 items-center">
         <Donut pct={data.youStartsChat} color="#25D366" label="You" />
         <div className="text-white/30 text-2xl">vs</div>
-        <Donut pct={data.partnerStartsChat} color="#FF2D75" label={data.partner} />
+        <Donut
+          pct={data.partnerStartsChat}
+          color="#FF2D75"
+          label={data.partner}
+        />
       </div>
       <Glass className="px-6 py-3 text-sm text-white/70">
-        You initiate <span className="text-green-400 font-bold">62%</span> of conversations. Clingy? Maybe. Caring? Absolutely. 💚
+        You initiate <span className="text-green-400 font-bold">62%</span> of
+        conversations. Clingy? Maybe. Caring? Absolutely. 💚
       </Glass>
     </div>
   );
@@ -504,13 +719,18 @@ function Card7({ data }) {
 function Card8({ data }) {
   return (
     <div className="flex flex-col items-center justify-center h-full gap-5 px-4 text-center">
-      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">Relationship Timeline</div>
+      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">
+        Relationship Timeline
+      </div>
       <Glass className="w-full p-4">
         <Timeline data={data.monthlyData} />
       </Glass>
       <Glass className="px-6 py-3">
         <span className="text-pink-400 font-bold">🌸 {data.peakMonth}</span>
-        <span className="text-white/60 text-sm"> was your peak. Something special happened? 👀</span>
+        <span className="text-white/60 text-sm">
+          {" "}
+          was your peak. Something special happened? 👀
+        </span>
       </Glass>
     </div>
   );
@@ -519,22 +739,38 @@ function Card8({ data }) {
 function Card9({ data }) {
   return (
     <div className="flex flex-col items-center justify-center h-full gap-4 px-4 text-center">
-      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">Love & Dating Analysis</div>
+      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">
+        Love & Dating Analysis
+      </div>
       <RadarChart data={data.radarData} />
       <div className="grid grid-cols-2 gap-2 w-full">
         {[
-          { label: "❤️ Love Score", val: `${data.loveScore}%`, color: "#FF2D75" },
+          {
+            label: "❤️ Love Score",
+            val: `${data.loveScore}%`,
+            color: "#FF2D75",
+          },
           { label: "😂 Humor Match", val: "91%", color: "#FFD700" },
           { label: "💚 Green Flags", val: "88%", color: "#25D366" },
           { label: "📱 Attachment", val: "HIGH", color: "#B84CFF" },
         ].map((s) => (
           <Glass key={s.label} className="p-3 text-center">
             <div className="text-xs text-white/50">{s.label}</div>
-            <div className="font-black text-lg" style={{ color: s.color, textShadow: `0 0 15px ${s.color}80` }}>{s.val}</div>
+            <div
+              className="font-black text-lg"
+              style={{ color: s.color, textShadow: `0 0 15px ${s.color}80` }}
+            >
+              {s.val}
+            </div>
           </Glass>
         ))}
       </div>
-      <div className="text-white/40 text-xs">✨ Relationship Type: <span className="text-purple-400 font-bold">Best Friends to Lovers</span></div>
+      <div className="text-white/40 text-xs">
+        ✨ Relationship Type:{" "}
+        <span className="text-purple-400 font-bold">
+          Best Friends to Lovers
+        </span>
+      </div>
     </div>
   );
 }
@@ -542,23 +778,49 @@ function Card9({ data }) {
 function Card10({ data }) {
   return (
     <div className="flex flex-col items-center justify-center h-full gap-5 px-4 text-center">
-      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">Flags Report</div>
-      <Glass className="w-full p-4" style={{ background: "rgba(37,211,102,0.08)", borderColor: "rgba(37,211,102,0.2)" }}>
-        <div className="text-green-400 font-bold mb-3 flex items-center gap-2">🟢 Green Flags</div>
+      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">
+        Flags Report
+      </div>
+      <Glass
+        className="w-full p-4"
+        style={{
+          background: "rgba(37,211,102,0.08)",
+          borderColor: "rgba(37,211,102,0.2)",
+        }}
+      >
+        <div className="text-green-400 font-bold mb-3 flex items-center gap-2">
+          🟢 Green Flags
+        </div>
         <div className="flex flex-col gap-2">
           {data.greenFlags.map((f, i) => (
-            <div key={i} className="flex items-center gap-2 bg-green-400/10 rounded-xl px-3 py-2 text-sm text-white/80">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400 shrink-0" />{f}
+            <div
+              key={i}
+              className="flex items-center gap-2 bg-green-400/10 rounded-xl px-3 py-2 text-sm text-white/80"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-green-400 shrink-0" />
+              {f}
             </div>
           ))}
         </div>
       </Glass>
-      <Glass className="w-full p-4" style={{ background: "rgba(255,45,117,0.08)", borderColor: "rgba(255,45,117,0.2)" }}>
-        <div className="text-pink-400 font-bold mb-3 flex items-center gap-2">🚩 Red Flags</div>
+      <Glass
+        className="w-full p-4"
+        style={{
+          background: "rgba(255,45,117,0.08)",
+          borderColor: "rgba(255,45,117,0.2)",
+        }}
+      >
+        <div className="text-pink-400 font-bold mb-3 flex items-center gap-2">
+          🚩 Red Flags
+        </div>
         <div className="flex flex-col gap-2">
           {data.redFlags.map((f, i) => (
-            <div key={i} className="flex items-center gap-2 bg-pink-400/10 rounded-xl px-3 py-2 text-sm text-white/80">
-              <span className="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0" />{f}
+            <div
+              key={i}
+              className="flex items-center gap-2 bg-pink-400/10 rounded-xl px-3 py-2 text-sm text-white/80"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0" />
+              {f}
             </div>
           ))}
         </div>
@@ -571,14 +833,26 @@ function Card11({ data }) {
   return (
     <div className="flex flex-col items-center justify-center h-full gap-6 px-6 text-center">
       <Particles emojis={["💌", "✨", "🥹", "💞"]} count={14} />
-      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">Most Romantic Message</div>
+      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">
+        Most Romantic Message
+      </div>
       <div className="text-5xl animate-pulse-slow">💌</div>
-      <Glass className="w-full p-6 relative" style={{ background: "rgba(255,45,117,0.08)", borderColor: "rgba(255,45,117,0.3)" }}>
+      <Glass
+        className="w-full p-6 relative"
+        style={{
+          background: "rgba(255,45,117,0.08)",
+          borderColor: "rgba(255,45,117,0.3)",
+        }}
+      >
         <div className="text-6xl absolute -top-4 -left-2 opacity-20">"</div>
-        <p className="text-white text-base leading-relaxed italic font-light relative z-10">{data.mostRomanticMsg.text}</p>
+        <p className="text-white text-base leading-relaxed italic font-light relative z-10">
+          {data.mostRomanticMsg.text}
+        </p>
         <div className="text-6xl absolute -bottom-8 -right-2 opacity-20">"</div>
       </Glass>
-      <div className="text-white/40 text-xs font-mono">📅 {data.mostRomanticMsg.date}</div>
+      <div className="text-white/40 text-xs font-mono">
+        📅 {data.mostRomanticMsg.date}
+      </div>
     </div>
   );
 }
@@ -586,24 +860,43 @@ function Card11({ data }) {
 function Card12({ data }) {
   return (
     <div className="flex flex-col items-center justify-center h-full gap-5 px-4 text-center">
-      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">Chat Achievements</div>
+      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">
+        Chat Achievements
+      </div>
       <div className="grid grid-cols-2 gap-3 w-full">
         {data.achievements.map((a, i) => (
           <Glass
             key={i}
             className="p-4 flex flex-col items-center gap-2 relative overflow-hidden"
-            style={a.unlocked ? { background: "rgba(37,211,102,0.1)", borderColor: "rgba(37,211,102,0.3)" } : { opacity: 0.4 }}
+            style={
+              a.unlocked
+                ? {
+                    background: "rgba(37,211,102,0.1)",
+                    borderColor: "rgba(37,211,102,0.3)",
+                  }
+                : { opacity: 0.4 }
+            }
           >
             {a.unlocked && (
-              <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at 50% 0%, rgba(37,211,102,0.2), transparent 70%)" }} />
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(circle at 50% 0%, rgba(37,211,102,0.2), transparent 70%)",
+                }}
+              />
             )}
             <div className="text-3xl">{a.icon}</div>
             <div className="font-bold text-sm text-white">{a.title}</div>
             <div className="text-[10px] text-white/50">{a.desc}</div>
             {a.unlocked ? (
-              <div className="text-[9px] text-green-400 font-mono uppercase tracking-wider">✓ Unlocked</div>
+              <div className="text-[9px] text-green-400 font-mono uppercase tracking-wider">
+                ✓ Unlocked
+              </div>
             ) : (
-              <div className="text-[9px] text-white/30 font-mono uppercase tracking-wider">🔒 Locked</div>
+              <div className="text-[9px] text-white/30 font-mono uppercase tracking-wider">
+                🔒 Locked
+              </div>
             )}
           </Glass>
         ))}
@@ -615,14 +908,30 @@ function Card12({ data }) {
 // ─── Final wrapped screen ─────────────────────────────────────────────────────
 function FinalScreen({ data, onRestart }) {
   const [showConfetti, setShowConfetti] = useState(true);
-  useEffect(() => { const t = setTimeout(() => setShowConfetti(false), 5000); return () => clearTimeout(t); }, []);
+  useEffect(() => {
+    const t = setTimeout(() => setShowConfetti(false), 5000);
+    return () => clearTimeout(t);
+  }, []);
   return (
     <div className="flex flex-col items-center justify-center h-full gap-6 px-5 text-center relative">
       {showConfetti && <Confetti />}
       <Particles emojis={["🎉", "💚", "✨", "🎊", "🏆"]} count={16} />
-      <div className="text-white/50 text-xs font-mono tracking-widest uppercase">Your</div>
-      <div className="font-black text-4xl text-white leading-none">WhatsApp</div>
-      <div className="font-black text-5xl leading-none" style={{ background: "linear-gradient(135deg,#25D366,#B84CFF,#FF2D75)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>WRAPPED 2025</div>
+      <div className="text-white/50 text-xs font-mono tracking-widest uppercase">
+        Your
+      </div>
+      <div className="font-black text-4xl text-white leading-none">
+        WhatsApp
+      </div>
+      <div
+        className="font-black text-5xl leading-none"
+        style={{
+          background: "linear-gradient(135deg,#25D366,#B84CFF,#FF2D75)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+        }}
+      >
+        WRAPPED 2025
+      </div>
       <div className="grid grid-cols-3 gap-3 w-full mt-2">
         {[
           { label: "Messages", val: data.totalMessages, icon: "💬" },
@@ -630,25 +939,44 @@ function FinalScreen({ data, onRestart }) {
           { label: "Media", val: data.totalMedia, icon: "📸" },
           { label: "Links", val: data.totalLinks, icon: "🔗" },
           { label: "Emoji", val: data.totalEmoji, icon: "😊" },
-          { label: "Love Score", val: `${data.loveScore}%`, icon: "❤️", raw: true },
+          {
+            label: "Love Score",
+            val: `${data.loveScore}%`,
+            icon: "❤️",
+            raw: true,
+          },
         ].map((s) => (
           <Glass key={s.label} className="p-3 flex flex-col items-center gap-1">
             <div className="text-xl">{s.icon}</div>
             <div className="font-black text-lg text-white">
               {s.raw ? s.val : <Counter target={s.val} duration={1200} />}
             </div>
-            <div className="text-[9px] text-white/40 uppercase tracking-wider">{s.label}</div>
+            <div className="text-[9px] text-white/40 uppercase tracking-wider">
+              {s.label}
+            </div>
           </Glass>
         ))}
       </div>
       <div className="flex flex-col gap-3 w-full mt-2">
-        <button className="w-full py-3 rounded-2xl font-bold text-sm text-black" style={{ background: "linear-gradient(135deg,#25D366,#128C7E)", boxShadow: "0 0 20px #25D36660" }}>
+        <button
+          className="w-full py-3 rounded-2xl font-bold text-sm text-black"
+          style={{
+            background: "linear-gradient(135deg,#25D366,#128C7E)",
+            boxShadow: "0 0 20px #25D36660",
+          }}
+        >
           📤 Share as Story
         </button>
-        <button className="w-full py-3 rounded-2xl font-bold text-sm text-white border border-white/20" style={{ background: "rgba(255,255,255,0.06)" }}>
+        <button
+          className="w-full py-3 rounded-2xl font-bold text-sm text-white border border-white/20"
+          style={{ background: "rgba(255,255,255,0.06)" }}
+        >
           📊 Download Report
         </button>
-        <button onClick={onRestart} className="w-full py-3 rounded-2xl font-bold text-sm text-white/60 text-xs">
+        <button
+          onClick={onRestart}
+          className="w-full py-3 rounded-2xl font-bold text-sm text-white/60 text-xs"
+        >
           🔄 Analyze Another Chat
         </button>
       </div>
@@ -657,7 +985,20 @@ function FinalScreen({ data, onRestart }) {
 }
 
 // ─── Story wrapper ────────────────────────────────────────────────────────────
-const CARDS = [Card1, Card2, Card3, Card4, Card5, Card6, Card7, Card8, Card9, Card10, Card11, Card12];
+const CARDS = [
+  Card1,
+  Card2,
+  Card3,
+  Card4,
+  Card5,
+  Card6,
+  Card7,
+  Card8,
+  Card9,
+  Card10,
+  Card11,
+  Card12,
+];
 
 function StoryExperience({ data, onFinish }) {
   const [current, setCurrent] = useState(0);
@@ -669,7 +1010,9 @@ function StoryExperience({ data, onFinish }) {
     else onFinish();
   }, [current, total, onFinish]);
 
-  const prev = () => { if (current > 0) setCurrent((c) => c - 1); };
+  const prev = () => {
+    if (current > 0) setCurrent((c) => c - 1);
+  };
 
   const bgGradients = [
     "from-green-950 via-black to-black",
@@ -700,8 +1043,14 @@ function StoryExperience({ data, onFinish }) {
     >
       {/* ambient glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-10 blur-3xl" style={{ background: "#25D366" }} />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full opacity-8 blur-3xl" style={{ background: "#FF2D75" }} />
+        <div
+          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-10 blur-3xl"
+          style={{ background: "#25D366" }}
+        />
+        <div
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full opacity-8 blur-3xl"
+          style={{ background: "#FF2D75" }}
+        />
       </div>
 
       <StoryProgress total={total} current={current} onTick={next} />
@@ -709,10 +1058,17 @@ function StoryExperience({ data, onFinish }) {
       {/* header */}
       <div className="flex items-center justify-between px-4 pt-2 pb-1 z-10">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-full flex items-center justify-center text-sm" style={{ background: "#25D366" }}>💬</div>
+          <div
+            className="w-7 h-7 rounded-full flex items-center justify-center text-sm"
+            style={{ background: "#25D366" }}
+          >
+            💬
+          </div>
           <span className="text-white text-sm font-bold">WhatsApp Wrapped</span>
         </div>
-        <div className="text-white/40 text-xs font-mono">{current + 1}/{total}</div>
+        <div className="text-white/40 text-xs font-mono">
+          {current + 1}/{total}
+        </div>
       </div>
 
       <div className="flex-1 overflow-hidden">
@@ -730,14 +1086,24 @@ function StoryExperience({ data, onFinish }) {
 
 // ─── Processing screen ────────────────────────────────────────────────────────
 function ProcessingScreen({ onDone }) {
-  const steps = ["Analyzing messages...", "Finding favorite emoji...", "Calculating compatibility...", "Detecting red flags... 🚩", "Building your Wrapped ✨"];
+  const steps = [
+    "Analyzing messages...",
+    "Finding favorite emoji...",
+    "Calculating compatibility...",
+    "Detecting red flags... 🚩",
+    "Building your Wrapped ✨",
+  ];
   const [step, setStep] = useState(0);
   const [pct, setPct] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setPct((p) => {
-        if (p >= 100) { clearInterval(interval); setTimeout(onDone, 400); return 100; }
+        if (p >= 100) {
+          clearInterval(interval);
+          setTimeout(onDone, 400);
+          return 100;
+        }
         return p + 2;
       });
     }, 40);
@@ -751,16 +1117,30 @@ function ProcessingScreen({ onDone }) {
 
   return (
     <div className="fixed inset-0 bg-black flex flex-col items-center justify-center gap-8 px-8 text-center">
-      <Particles emojis={["💬","✨","📊","💚","🔍"]} count={20} />
+      <Particles emojis={["💬", "✨", "📊", "💚", "🔍"]} count={20} />
       <div className="relative w-32 h-32">
         <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
-          <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="8" />
           <circle
-            cx="60" cy="60" r="50" fill="none"
-            stroke="#25D366" strokeWidth="8"
+            cx="60"
+            cy="60"
+            r="50"
+            fill="none"
+            stroke="rgba(255,255,255,0.1)"
+            strokeWidth="8"
+          />
+          <circle
+            cx="60"
+            cy="60"
+            r="50"
+            fill="none"
+            stroke="#25D366"
+            strokeWidth="8"
             strokeDasharray={`${pct * 3.14} 314`}
             strokeLinecap="round"
-            style={{ filter: "drop-shadow(0 0 10px #25D366)", transition: "stroke-dasharray 0.1s" }}
+            style={{
+              filter: "drop-shadow(0 0 10px #25D366)",
+              transition: "stroke-dasharray 0.1s",
+            }}
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
@@ -769,9 +1149,18 @@ function ProcessingScreen({ onDone }) {
       </div>
       <div className="space-y-3">
         {steps.map((s, i) => (
-          <div key={i} className={`flex items-center gap-3 transition-all duration-500 ${i === step ? "opacity-100 scale-105" : i < step ? "opacity-40" : "opacity-20"}`}>
-            <div className={`w-2 h-2 rounded-full ${i < step ? "bg-green-400" : i === step ? "bg-white animate-pulse" : "bg-white/20"}`} />
-            <span className={`text-sm ${i === step ? "text-white font-bold" : "text-white/50"}`}>{s}</span>
+          <div
+            key={i}
+            className={`flex items-center gap-3 transition-all duration-500 ${i === step ? "opacity-100 scale-105" : i < step ? "opacity-40" : "opacity-20"}`}
+          >
+            <div
+              className={`w-2 h-2 rounded-full ${i < step ? "bg-green-400" : i === step ? "bg-white animate-pulse" : "bg-white/20"}`}
+            />
+            <span
+              className={`text-sm ${i === step ? "text-white font-bold" : "text-white/50"}`}
+            >
+              {s}
+            </span>
           </div>
         ))}
       </div>
@@ -794,28 +1183,43 @@ function UploadScreen({ onUpload }) {
 
   return (
     <div className="fixed inset-0 bg-black flex flex-col items-center justify-center px-6 gap-8">
-      <Particles emojis={["📁","💬","✨","📤"]} count={12} />
+      <Particles emojis={["📁", "💬", "✨", "📤"]} count={12} />
       <div className="text-center">
         <h2 className="text-3xl font-black text-white">Upload Your Chat</h2>
-        <p className="text-white/50 text-sm mt-2">Export from WhatsApp → More → Export Chat → Without Media</p>
+        <p className="text-white/50 text-sm mt-2">
+          Export from WhatsApp → More → Export Chat → Without Media
+        </p>
       </div>
       <div
         className={`w-full max-w-sm border-2 border-dashed rounded-3xl p-10 flex flex-col items-center gap-4 transition-all cursor-pointer ${dragging ? "border-green-400 bg-green-400/10" : "border-white/20 bg-white/5"}`}
-        onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+        onDragOver={(e) => {
+          e.preventDefault();
+          setDragging(true);
+        }}
         onDragLeave={() => setDragging(false)}
         onDrop={handleDrop}
         onClick={() => inputRef.current?.click()}
       >
-        <input ref={inputRef} type="file" accept=".txt" className="hidden" onChange={(e) => setFile(e.target.files[0])} />
+        <input
+          ref={inputRef}
+          type="file"
+          accept=".txt"
+          className="hidden"
+          onChange={(e) => setFile(e.target.files[0])}
+        />
         <div className="text-5xl">{file ? "✅" : "📁"}</div>
         {file ? (
           <>
             <div className="text-white font-bold text-sm">{file.name}</div>
-            <div className="text-white/40 text-xs">{(file.size / 1024).toFixed(1)} KB</div>
+            <div className="text-white/40 text-xs">
+              {(file.size / 1024).toFixed(1)} KB
+            </div>
           </>
         ) : (
           <>
-            <div className="text-white/60 text-sm font-medium">Drop your .txt file here</div>
+            <div className="text-white/60 text-sm font-medium">
+              Drop your .txt file here
+            </div>
             <div className="text-white/30 text-xs">or click to browse</div>
           </>
         )}
@@ -825,7 +1229,9 @@ function UploadScreen({ onUpload }) {
         disabled={!file}
         className="w-full max-w-sm py-4 rounded-2xl font-black text-black text-lg transition-all"
         style={{
-          background: file ? "linear-gradient(135deg,#25D366,#128C7E)" : "rgba(255,255,255,0.1)",
+          background: file
+            ? "linear-gradient(135deg,#25D366,#128C7E)"
+            : "rgba(255,255,255,0.1)",
           color: file ? "black" : "rgba(255,255,255,0.3)",
           boxShadow: file ? "0 0 30px #25D36660" : "none",
         }}
@@ -842,37 +1248,87 @@ function Landing({ onUpload, onDemo }) {
     <div className="fixed inset-0 bg-black overflow-hidden flex flex-col items-center justify-center">
       {/* Animated background blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute w-[600px] h-[600px] rounded-full blur-3xl opacity-15 animate-blob1" style={{ background: "radial-gradient(#25D366, transparent)", top: "-20%", left: "-20%" }} />
-        <div className="absolute w-[500px] h-[500px] rounded-full blur-3xl opacity-10 animate-blob2" style={{ background: "radial-gradient(#FF2D75, transparent)", bottom: "-20%", right: "-20%" }} />
-        <div className="absolute w-[400px] h-[400px] rounded-full blur-3xl opacity-8 animate-blob3" style={{ background: "radial-gradient(#B84CFF, transparent)", top: "30%", right: "10%" }} />
+        <div
+          className="absolute w-[600px] h-[600px] rounded-full blur-3xl opacity-15 animate-blob1"
+          style={{
+            background: "radial-gradient(#25D366, transparent)",
+            top: "-20%",
+            left: "-20%",
+          }}
+        />
+        <div
+          className="absolute w-[500px] h-[500px] rounded-full blur-3xl opacity-10 animate-blob2"
+          style={{
+            background: "radial-gradient(#FF2D75, transparent)",
+            bottom: "-20%",
+            right: "-20%",
+          }}
+        />
+        <div
+          className="absolute w-[400px] h-[400px] rounded-full blur-3xl opacity-8 animate-blob3"
+          style={{
+            background: "radial-gradient(#B84CFF, transparent)",
+            top: "30%",
+            right: "10%",
+          }}
+        />
       </div>
-      <Particles emojis={["💬","❤️","😂","🥰","✨","💚","🔥","👀","😍","💯"]} count={22} />
+      <Particles
+        emojis={["💬", "❤️", "😂", "🥰", "✨", "💚", "🔥", "👀", "😍", "💯"]}
+        count={22}
+      />
 
       <div className="relative z-10 flex flex-col items-center gap-6 px-6 text-center max-w-sm">
         {/* Logo */}
         <div className="flex items-center gap-3 mb-2">
-          <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl" style={{ background: "linear-gradient(135deg,#25D366,#128C7E)", boxShadow: "0 0 30px #25D36680" }}>💬</div>
+          <div
+            className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl"
+            style={{
+              background: "linear-gradient(135deg,#25D366,#128C7E)",
+              boxShadow: "0 0 30px #25D36680",
+            }}
+          >
+            💬
+          </div>
           <div className="text-left">
-            <div className="text-xs text-white/40 font-mono tracking-widest uppercase">whatsapp</div>
-            <div className="text-xl font-black text-white tracking-tight leading-none">WRAPPED</div>
+            <div className="text-xs text-white/40 font-mono tracking-widest uppercase">
+              whatsapp
+            </div>
+            <div className="text-xl font-black text-white tracking-tight leading-none">
+              WRAPPED
+            </div>
           </div>
         </div>
 
         {/* Glassmorphism hero card */}
         <Glass className="w-full p-8 flex flex-col items-center gap-5">
           <div className="font-black text-5xl text-white leading-none tracking-tight">
-            Turn your <Neon color="#25D366">chats</Neon> into<br />
-            <span style={{ background: "linear-gradient(135deg,#FF2D75,#B84CFF)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>unforgettable</span><br />
+            Turn your <Neon color="#25D366">chats</Neon> into
+            <br />
+            <span
+              style={{
+                background: "linear-gradient(135deg,#FF2D75,#B84CFF)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              unforgettable
+            </span>
+            <br />
             insights.
           </div>
           <div className="text-white/50 text-sm leading-relaxed">
-            Spotify Wrapped, but for your WhatsApp. Discover your texting personality, love score, and more ✨
+            Spotify Wrapped, but for your WhatsApp. Discover your texting
+            personality, love score, and more ✨
           </div>
           <div className="flex flex-col gap-3 w-full mt-2">
             <button
               onClick={onUpload}
               className="w-full py-4 rounded-2xl font-black text-black text-base"
-              style={{ background: "linear-gradient(135deg,#25D366,#128C7E)", boxShadow: "0 0 25px #25D36660" }}
+              style={{
+                background: "linear-gradient(135deg,#25D366,#128C7E)",
+                boxShadow: "0 0 25px #25D36660",
+              }}
             >
               📁 Upload Chat
             </button>
@@ -888,8 +1344,18 @@ function Landing({ onUpload, onDemo }) {
 
         {/* Feature pills */}
         <div className="flex flex-wrap gap-2 justify-center">
-          {["🔒 Private", "📱 Mobile-first", "✨ AI Insights", "📊 Deep Stats"].map((f) => (
-            <span key={f} className="text-xs text-white/50 bg-white/5 border border-white/10 rounded-full px-3 py-1">{f}</span>
+          {[
+            "🔒 Private",
+            "📱 Mobile-first",
+            "✨ AI Insights",
+            "📊 Deep Stats",
+          ].map((f) => (
+            <span
+              key={f}
+              className="text-xs text-white/50 bg-white/5 border border-white/10 rounded-full px-3 py-1"
+            >
+              {f}
+            </span>
           ))}
         </div>
       </div>
@@ -961,7 +1427,10 @@ export default function AppUI() {
       `}</style>
 
       {screen === "landing" && (
-        <Landing onUpload={() => goTo("upload")} onDemo={() => goTo("processing")} />
+        <Landing
+          onUpload={() => goTo("upload")}
+          onDemo={() => goTo("processing")}
+        />
       )}
       {screen === "upload" && (
         <UploadScreen onUpload={() => goTo("processing")} />

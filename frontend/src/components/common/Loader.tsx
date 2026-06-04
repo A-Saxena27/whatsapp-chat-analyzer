@@ -1,10 +1,35 @@
 import { useEffect, useState } from "react";
-import Particles from "../components/wrapped/shared/Particles";
-interface ProcessingProps {
+
+interface LoaderProps {
   onDone: () => void;
 }
 
-export default function Processing({ onDone }: ProcessingProps) {
+interface ParticlesProps {
+  emojis: string[];
+  count: number;
+}
+
+function Particles({ emojis, count }: ParticlesProps) {
+  return (
+    <div className="absolute inset-0 -z-10 overflow-hidden">
+      {Array.from({ length: count }).map((_, index) => (
+        <span
+          key={index}
+          className="absolute text-xl"
+          style={{
+            left: `${(index / count) * 100}%`,
+            top: `${(index % 5) * 18}%`,
+            opacity: 0.25,
+          }}
+        >
+          {emojis[index % emojis.length]}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+export default function Loader({ onDone }: LoaderProps) {
   const steps = [
     "Analyzing messages...",
     "Finding favorite emoji...",
@@ -28,6 +53,7 @@ export default function Processing({ onDone }: ProcessingProps) {
     }, 40);
     return () => clearInterval(interval);
   }, [onDone]);
+
   useEffect(() => {
     const i = Math.floor((pct / 100) * steps.length);
     setStep(Math.min(i, steps.length - 1));

@@ -1,37 +1,91 @@
-type Props = {
-  messages: number;
-  words: number;
-  loveScore: number;
-};
+import { useState, useEffect } from "react";
+import Glass from "../common/GlassCard";
+import Particles from "./shared/Particles";
+import Counter from "./shared/Counter";
+import Confetti from "./shared/Confetti";
 
-export default function FinalWrappedCard({
-  messages,
-  words,
-  loveScore,
-}: Props) {
+function FinalWrappedCard({
+  data,
+  onFinish,
+}: {
+  data: any;
+  onFinish: () => void;
+}) {
+  const [showConfetti, setShowConfetti] = useState(true);
+  useEffect(() => {
+    const t = setTimeout(() => setShowConfetti(false), 5000);
+    return () => clearTimeout(t);
+  }, []);
   return (
-    <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-10 text-center">
-      <h1 className="text-5xl font-bold mb-8">🎉 WhatsApp Wrapped</h1>
-
-      <div className="space-y-3">
-        <p>{messages.toLocaleString()} Messages</p>
-        <p>{words.toLocaleString()} Words</p>
-        <p>❤️ Love Score: {loveScore}%</p>
+    <div className="flex flex-col items-center justify-center h-full gap-6 px-5 text-center relative">
+      {showConfetti && <Confetti />}
+      <Particles emojis={["🎉", "💚", "✨", "🎊", "🏆"]} count={16} />
+      <div className="text-white/50 text-xs font-mono tracking-widest uppercase">
+        Your
       </div>
-
-      <div className="mt-10 flex flex-col gap-3">
-        <button className="bg-green-500 text-black py-3 rounded-xl">
-          Share Wrapped
+      <div className="font-black text-4xl text-white leading-none">
+        WhatsApp
+      </div>
+      <div
+        className="font-black text-5xl leading-none"
+        style={{
+          background: "linear-gradient(135deg,#25D366,#B84CFF,#FF2D75)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+        }}
+      >
+        WRAPPED 2025
+      </div>
+      <div className="grid grid-cols-3 gap-3 w-full mt-2">
+        {[
+          { label: "Messages", val: data.totalMessages, icon: "💬" },
+          { label: "Words", val: data.totalWords, icon: "📝" },
+          { label: "Media", val: data.totalMedia, icon: "📸" },
+          { label: "Links", val: data.totalLinks, icon: "🔗" },
+          { label: "Emoji", val: data.totalEmoji, icon: "😊" },
+          {
+            label: "Love Score",
+            val: `${data.loveScore}%`,
+            icon: "❤️",
+            raw: true,
+          },
+        ].map((s) => (
+          <Glass key={s.label} className="p-3 flex flex-col items-center gap-1">
+            <div className="text-xl">{s.icon}</div>
+            <div className="font-black text-lg text-white">
+              {s.raw ? s.val : <Counter target={s.val} duration={1200} />}
+            </div>
+            <div className="text-[9px] text-white/40 uppercase tracking-wider">
+              {s.label}
+            </div>
+          </Glass>
+        ))}
+      </div>
+      <div className="flex flex-col gap-3 w-full mt-2">
+        <button
+          className="w-full py-3 rounded-2xl font-bold text-sm text-black"
+          style={{
+            background: "linear-gradient(135deg,#25D366,#128C7E)",
+            boxShadow: "0 0 20px #25D36660",
+          }}
+        >
+          📤 Share as Story
         </button>
-
-        <button className="bg-purple-500 py-3 rounded-xl">
-          Download Report
+        <button
+          className="w-full py-3 rounded-2xl font-bold text-sm text-white border border-white/20"
+          style={{ background: "rgba(255,255,255,0.06)" }}
+        >
+          📊 Download Report
         </button>
-
-        <button className="bg-pink-500 py-3 rounded-xl">
-          Analyze Another Chat
+        <button
+          onClick={onFinish}
+          className="w-full py-3 rounded-2xl font-bold text-sm text-white/60 text-xs"
+        >
+          🔄 Analyze Another Chat
         </button>
       </div>
     </div>
   );
 }
+
+export default FinalWrappedCard;

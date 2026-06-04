@@ -1,23 +1,60 @@
-export default function AchievementCard() {
-  const badges = [
-    "🏆 Streak Master",
-    "🔥 Night Owl",
-    "😂 Meme Distributor",
-    "❤️ Heart Collector",
-  ];
+import Glass from "../common/GlassCard";
 
+type Achievement = {
+  unlocked: boolean;
+  icon: string;
+  title: string;
+  desc: string;
+};
+
+type AchievementCardProps = {
+  data: {
+    achievements: Achievement[];
+  };
+};
+
+export default function AchievementCard({ data }: AchievementCardProps) {
   return (
-    <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8">
-      <h2 className="text-3xl font-bold text-center mb-8">Achievements</h2>
-
-      <div className="grid grid-cols-2 gap-4">
-        {badges.map((badge) => (
-          <div
-            key={badge}
-            className="bg-white/5 border border-white/10 rounded-2xl p-4 text-center"
+    <div className="flex flex-col items-center justify-center h-full gap-5 px-4 text-center">
+      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">
+        Chat Achievements
+      </div>
+      <div className="grid grid-cols-2 gap-3 w-full">
+        {data.achievements.map((a, i) => (
+          <Glass
+            key={i}
+            className="p-4 flex flex-col items-center gap-2 relative overflow-hidden"
+            style={
+              a.unlocked
+                ? {
+                    background: "rgba(37,211,102,0.1)",
+                    borderColor: "rgba(37,211,102,0.3)",
+                  }
+                : { opacity: 0.4 }
+            }
           >
-            {badge}
-          </div>
+            {a.unlocked && (
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(circle at 50% 0%, rgba(37,211,102,0.2), transparent 70%)",
+                }}
+              />
+            )}
+            <div className="text-3xl">{a.icon}</div>
+            <div className="font-bold text-sm text-white">{a.title}</div>
+            <div className="text-[10px] text-white/50">{a.desc}</div>
+            {a.unlocked ? (
+              <div className="text-[9px] text-green-400 font-mono uppercase tracking-wider">
+                ✓ Unlocked
+              </div>
+            ) : (
+              <div className="text-[9px] text-white/30 font-mono uppercase tracking-wider">
+                🔒 Locked
+              </div>
+            )}
+          </Glass>
         ))}
       </div>
     </div>

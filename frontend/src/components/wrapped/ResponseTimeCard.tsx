@@ -1,28 +1,50 @@
-type Props = {
-  you: string;
+import Glass from "../common/GlassCard";
+
+type ResponseData = {
+  youResponseTime: string | number;
   partner: string;
+  partnerResponseTime: string | number;
 };
 
-export default function ResponseTimeCard({ you, partner }: Props) {
+export default function Card5({ data }: { data: ResponseData }) {
   return (
-    <div className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8 text-center">
-      <h2 className="text-3xl font-bold mb-6">⚡ Response Time Battle</h2>
-
-      <div className="space-y-5">
-        <div>
-          <p>You</p>
-          <div className="h-4 bg-green-500 rounded-full w-3/4 mx-auto"></div>
-          <p>{you}</p>
-        </div>
-
-        <div>
-          <p>Partner</p>
-          <div className="h-4 bg-pink-500 rounded-full w-1/2 mx-auto"></div>
-          <p>{partner}</p>
-        </div>
+    <div className="flex flex-col items-center justify-center h-full gap-6 px-6 text-center">
+      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">
+        Response Time Battle
       </div>
-
-      <h3 className="text-green-400 mt-6 text-xl">🏆 Faster Responder</h3>
+      <div className="flex gap-6 w-full">
+        <Glass className="flex-1 p-5 flex flex-col items-center gap-2">
+          <div className="text-2xl">⚡</div>
+          <div className="text-xs text-white/50 font-mono uppercase">You</div>
+          <div className="text-2xl font-black text-green-400">
+            {data.youResponseTime}
+          </div>
+          <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
+            <div
+              className="h-full rounded-full bg-green-400 w-4/5"
+              style={{ boxShadow: "0 0 10px #25D366" }}
+            />
+          </div>
+          <div className="text-green-400 text-xs font-bold">⚡ WINNER</div>
+        </Glass>
+        <Glass className="flex-1 p-5 flex flex-col items-center gap-2">
+          <div className="text-2xl">🐢</div>
+          <div className="text-xs text-white/50 font-mono uppercase">
+            {data.partner}
+          </div>
+          <div className="text-2xl font-black text-pink-400">
+            {data.partnerResponseTime}
+          </div>
+          <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
+            <div
+              className="h-full rounded-full bg-pink-400 w-2/5"
+              style={{ boxShadow: "0 0 10px #FF2D75" }}
+            />
+          </div>
+          <div className="text-pink-400 text-xs font-bold">🐢 slow</div>
+        </Glass>
+      </div>
+      <div className="text-white/40 text-xs">You reply 2.5× faster 🏃‍♂️</div>
     </div>
   );
 }

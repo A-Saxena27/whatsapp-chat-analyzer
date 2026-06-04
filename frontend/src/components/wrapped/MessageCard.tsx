@@ -1,56 +1,33 @@
-import { motion } from "framer-motion";
-import CountUp from "react-countup";
+import Particles from "./shared/Particles";
+import Counter from "./shared/Counter";
+import Glass from "../common/GlassCard";
+import Neon from "./shared/Neon";
 
-type MessageCardProps = {
-  messages: number;
-};
-
-export default function MessageCard({ messages }: MessageCardProps) {
-  <CountUp end={messages} duration={2.5} />;
+export default function Card1({ data }: { data: any }) {
   return (
-    <div
-      className="
-      min-h-screen
-      flex
-      items-center
-      justify-center
-      bg-gradient-to-br
-      from-[#25D366]
-      via-[#B84CFF]
-      to-[#FF2D75]
-    "
-    >
-      <motion.div
-        initial={{
-          scale: 0.8,
-          opacity: 0,
-        }}
-        animate={{
-          scale: 1,
-          opacity: 1,
-        }}
-        transition={{
-          duration: 0.8,
-        }}
-        className="
-          bg-white/10
-          backdrop-blur-xl
-          border
-          border-white/20
-          rounded-3xl
-          p-12
-          text-center
-          shadow-2xl
-        "
+    <div className="flex flex-col items-center justify-center h-full gap-6 px-6 text-center">
+      <Particles emojis={["💬", "✨", "🚀", "💚"]} />
+      <div className="text-white/50 text-sm font-mono tracking-widest uppercase">
+        Total Messages
+      </div>
+      <div
+        className="text-8xl font-black text-white leading-none"
+        style={{ textShadow: "0 0 60px #25D36680" }}
       >
-        <p className="text-white/80 text-lg mb-4">WHATSAPP WRAPPED</p>
-
-        <h1 className="text-white text-8xl font-bold">
-          {messages.toLocaleString()}
-        </h1>
-
-        <p className="text-white text-2xl mt-6">Messages Sent</p>
-      </motion.div>
+        <Neon color="#25D366">
+          <Counter target={data.totalMessages} />
+        </Neon>
+      </div>
+      <Glass className="px-6 py-3">
+        <p className="text-white/70 text-sm">
+          That's roughly{" "}
+          <span className="text-green-400 font-bold">
+            {Math.round(data.totalMessages / 365)} messages a day
+          </span>{" "}
+          🤯
+        </p>
+      </Glass>
+      <div className="text-white/30 text-xs">between you & {data.partner}</div>
     </div>
   );
 }

@@ -1,0 +1,23 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Flask uploads
+uploaded_chat.txt
+
+# Node
+frontend/node_modules/
+
+# Build files
+frontend/dist/
+
+# VS Code
+.vscode/
+
+# Env files
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
