@@ -1,81 +1,112 @@
-import React, { useState, useRef } from "react";
-import Particles from "../components/common/Loader";
+import React, { useRef, useState } from "react";
+
 interface UploadProps {
-  onUpload: (file: File) => void;
+  onUpload: (file: File) => void | Promise<void>;
 }
 
 export default function Upload({ onUpload }: UploadProps) {
-  const [dragging, setDragging] = useState(false);
   const [file, setFile] = useState<File | null>(null);
+  const [dragging, setDragging] = useState(false);
+
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileSelect = (selectedFile: File) => {
+    setFile(selectedFile);
+  };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setDragging(false);
-    const f = e.dataTransfer.files[0];
-    if (f) setFile(f);
+
+    const droppedFile = e.dataTransfer.files?.[0];
+
+    if (droppedFile) {
+      handleFileSelect(droppedFile);
+    }
   };
 
   return (
-    <div className="fixed inset-0 bg-black flex flex-col items-center justify-center px-6 gap-8">
-      <Particles onDone={() => {}} />
-      <div className="text-center">
-        <h2 className="text-3xl font-black text-white">Upload Your Chat</h2>
-        <p className="text-white/50 text-sm mt-2">
-          Export from WhatsApp → More → Export Chat → Without Media
+    <div className="fixed inset-0 bg-black flex flex-col items-center justify-center px-6">
+      <div className="w-full max-w-md">
+        <h1 className="text-4xl font-bold text-white text-center mb-3">
+          Upload WhatsApp Chat
+        </h1>
+
+        <p className="text-white/60 text-center mb-8">
+          Export your WhatsApp chat and upload the .txt file
         </p>
-      </div>
-      <div
-        className={`w-full max-w-sm border-2 border-dashed rounded-3xl p-10 flex flex-col items-center gap-4 transition-all cursor-pointer ${dragging ? "border-green-400 bg-green-400/10" : "border-white/20 bg-white/5"}`}
-        onDragOver={(e) => {
-          e.preventDefault();
-          setDragging(true);
-        }}
-        onDragLeave={() => setDragging(false)}
-        onDrop={handleDrop}
-        onClick={() => inputRef.current?.click()}
-      >
+
+        <div
+          onClick={() => inputRef.current?.click()}
+          onDragOver={(e) => {
+            e.preventDefault();
+            setDragging(true);
+          }}
+          onDragLeave={() => setDragging(false)}
+          onDrop={handleDrop}
+          className={`border-2 border-dashed rounded-3xl p-10 text-center cursor-pointer transition-all ${
+            dragging
+              ? "border-green-400 bg-green-400/10"
+              : "border-white/10 bg-white/5"
+          }`}
+        >
+          <div className="text-6xl mb-4">
+            {file ? "✅" : "📁"}
+          </div>
+
+          {file ? (
+            <>
+              <p className="text-white font-semibold break-all">
+                {file.name}
+              </p>
+
+              <p className="text-white/50 text-sm mt-2">
+                {(file.size / 1024).toFixed(2)} KB
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="text-white text-lg font-semibold">
+                Click to choose a file
+              </p>
+
+              <p className="text-white/50 mt-2">
+                or drag & drop here
+              </p>
+            </>
+          )}
+        </div>
+
         <input
           ref={inputRef}
           type="file"
-          accept=".txt"
-          className="hidden"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            const f = e.target.files?.[0];
-            if (f) setFile(f);
+          accept=".txt,.zip"
+          style={{ display: "none" }}
+          onChange={(e) => {
+            const selectedFile = e.target.files?.[0];
+
+            if (selectedFile) {
+              handleFileSelect(selectedFile);
+            }
           }}
         />
-        <div className="text-5xl">{file ? "✅" : "📁"}</div>
-        {file ? (
-          <>
-            <div className="text-white font-bold text-sm">{file.name}</div>
-            <div className="text-white/40 text-xs">
-              {(file.size / 1024).toFixed(1)} KB
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="text-white/60 text-sm font-medium">
-              Drop your .txt file here
-            </div>
-            <div className="text-white/30 text-xs">or click to browse</div>
-          </>
-        )}
+
+        <button
+          disabled={!file}
+          onClick={() => {
+            if (file) {
+              onUpload(file);
+            }
+          }}
+          className={`w-full mt-6 py-4 rounded-2xl font-bold transition-all ${
+            file
+              ? "bg-green-500 text-black"
+              : "bg-gray-700 text-gray-400 cursor-not-allowed"
+          }`}
+        >
+          Generate My Wrapped ✨
+        </button>
       </div>
-      <button
-        onClick={() => file && onUpload(file)}
-        disabled={!file}
-        className="w-full max-w-sm py-4 rounded-2xl font-black text-black text-lg transition-all"
-        style={{
-          background: file
-            ? "linear-gradient(135deg,#25D366,#128C7E)"
-            : "rgba(255,255,255,0.1)",
-          color: file ? "black" : "rgba(255,255,255,0.3)",
-          boxShadow: file ? "0 0 30px #25D36660" : "none",
-        }}
-      >
-        Generate My Wrapped ✨
-      </button>
     </div>
   );
 }

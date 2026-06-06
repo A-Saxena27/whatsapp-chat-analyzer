@@ -14,7 +14,6 @@ type Screen = "landing" | "upload" | "processing" | "stories" | "final";
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>("landing");
-
   const [wrappedData, setWrappedData] = useState<any>(null);
 
   return (
@@ -28,19 +27,26 @@ export default function App() {
           }}
         />
       )}
+
       {screen === "upload" && (
         <Upload
-          onUpload={async (file) => {
+          onUpload={async (file: File) => {
             try {
               setScreen("processing");
 
+              console.log("Uploading:", file);
+
               const result = await uploadChat(file);
+
+              console.log("API Response:", result);
 
               setWrappedData(result);
 
-              setScreen("stories");
+              setTimeout(() => {
+                setScreen("stories");
+              }, 4000);
             } catch (error) {
-              console.error(error);
+              console.error("Upload Error:", error);
 
               alert("Analysis failed");
 
@@ -50,7 +56,9 @@ export default function App() {
         />
       )}
 
-      {screen === "processing" && <Processing onDone={() => {}} />}
+      {screen === "processing" && (
+        <Processing onDone={() => {}} />
+      )}
 
       {screen === "stories" && (
         <Wrapped
