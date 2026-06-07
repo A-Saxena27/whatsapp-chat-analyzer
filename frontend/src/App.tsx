@@ -40,7 +40,12 @@ export default function App() {
 
               console.log("API Response:", result);
 
-              setWrappedData(result);
+              console.log(result);
+
+              setWrappedData({
+                ...demoWrappedData,
+                ...result,
+              });
 
               setTimeout(() => {
                 setScreen("stories");
@@ -56,9 +61,7 @@ export default function App() {
         />
       )}
 
-      {screen === "processing" && (
-        <Processing onDone={() => {}} />
-      )}
+      {screen === "processing" && <Processing onDone={() => {}} />}
 
       {screen === "stories" && (
         <Wrapped

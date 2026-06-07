@@ -19,9 +19,9 @@ const cards: ComponentType<any>[] = [
   ResponseTimeCard,
   NightOwlCard,
   ConversationStarterCard,
-  FinalWrappedCard,
   RomanticMessageCard,
   AchievementCard,
+  FinalWrappedCard,
 ];
 type WrappedProps = {
   data: any;
