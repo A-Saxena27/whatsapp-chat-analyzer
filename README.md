@@ -1,264 +1,239 @@
-# WhatsApp Chat Analyzer 📊💬
+# 💬 WhatsApp Wrapped Analyzer
 
-## Project Description
+A modern WhatsApp Chat Analyzer that transforms exported WhatsApp chats into a personalized **WhatsApp Wrapped** experience inspired by Spotify Wrapped.
 
-WhatsApp Chat Analyzer is an interactive web application built using Python and Streamlit that analyzes exported WhatsApp chat data and generates meaningful insights, visualizations, and statistics.
-
-The application supports both individual and group chats. Users can upload their exported WhatsApp chat files and instantly explore communication patterns, user activity, sentiment trends, word usage, emoji behavior, and much more through an intuitive dashboard.
-
-The project combines data analysis, visualization, natural language processing (NLP), and machine learning concepts to transform raw chat data into actionable insights.
+Users can upload a WhatsApp chat export and instantly receive interactive insights, statistics, relationship analytics, timelines, achievements, and compatibility metrics.
 
 ---
 
-## Features
+## ✨ Features
 
-### Chat Statistics
+### 📊 Chat Statistics
 
-- Total Messages
-- Total Words
-- Media Shared
-- Links Shared
+* Total Messages
+* Total Words
+* Total Media Shared
+* Total Links Shared
+* Total Emoji Usage
+* Favorite Emoji Detection
 
-### Timeline Analysis
+### ❤️ Relationship Insights
 
-- Monthly Timeline
-- Daily Timeline
+* Love Score Calculation
+* Romantic Message Detection
+* Green Flag Detection
+* Red Flag Detection
+* Achievement System
+* Conversation Starter Analysis
 
-### Activity Analysis
+### ⏱ Activity Analytics
 
-- Weekly Activity Distribution
-- Monthly Activity Distribution
-- Activity Heatmap
+* Response Time Analysis
+* Most Active Time Detection
+* Monthly Timeline
+* Peak Activity Month
 
-### User Analysis
+### ☁️ Content Analysis
 
-- Most Active Users
-- User Contribution Percentage
+* Top Words Detection
+* Word Cloud Generation
+* Emoji Analysis
+* Chat Behaviour Metrics
 
-### NLP & Text Analysis
+### 🎨 Wrapped Experience
 
-- Word Cloud Visualization
-- Most Common Words
-- Keyword Extraction
-
-### Emoji Analysis
-
-- Most Frequently Used Emojis
-- Emoji Distribution Charts
-
-### Link Analysis
-
-- Most Shared Domains
-
-### Sentiment Analysis
-
-- Positive Messages
-- Neutral Messages
-- Negative Messages
-- Sentiment Visualization
-
-### Export Features
-
-- Download Processed Chat Data as CSV
+* Story-style card navigation
+* Animated transitions
+* Interactive wrapped cards
+* Mobile-friendly UI
+* WhatsApp-inspired design
 
 ---
 
-## Screenshots
-
-### Dashboard Overview
-
-Add screenshot here.
-
-### Timeline Analysis
-
-Add screenshot here.
-
-### Word Cloud
-
-Add screenshot here.
-
-### Sentiment Analysis
-
-Add screenshot here.
-
-### Activity Heatmap
-
-Add screenshot here.
-
----
-
-## Tech Stack
+## 🛠 Tech Stack
 
 ### Frontend
 
-- Streamlit
+* React
+* TypeScript
+* Vite
+* Tailwind CSS
+* Axios
 
 ### Backend
 
-- Python
-
-### Data Processing
-
-- Pandas
-- NumPy
-
-### Visualization
-
-- Matplotlib
-- Seaborn
-- WordCloud
-
-### NLP & Machine Learning
-
-- TextBlob / VADER Sentiment Analysis
-- Emoji Processing
-
-### Utility Libraries
-
-- URLExtract
-- Collections Counter
-- Regex
+* Python
+* Flask
+* Flask-CORS
+* Pandas
+* Regex-based WhatsApp Parser
 
 ---
 
-## Installation
-
-### Clone Repository
-
-```bash
-git clone https://github.com/your-username/whatsapp-chat-analyzer.git
-
-cd whatsapp-chat-analyzer
-```
-
-### Create Virtual Environment
-
-```bash
-python -m venv venv
-```
-
-### Activate Environment
-
-#### Windows
-
-```bash
-venv\Scripts\activate
-```
-
-#### Linux / Mac
-
-```bash
-source venv/bin/activate
-```
-
-### Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## How to Run
-
-Start the Streamlit application:
-
-```bash
-streamlit run app.py
-```
-
-The application will open automatically in your browser.
-
-If it doesn't, visit:
-
-```text
-http://localhost:8501
-```
-
----
-
-## How to Export WhatsApp Chat
-
-1. Open WhatsApp.
-2. Open the desired chat.
-3. Click Menu → More → Export Chat.
-4. Choose "Without Media".
-5. Save the exported .txt file.
-6. Upload the file into the application.
-
----
-
-## Project Structure
+## 📂 Project Structure
 
 ```text
 whatsapp-chat-analyzer/
 │
-├── app.py
-├── helper.py
-├── preprocessor.py
-├── stop_hinglish.txt
-├── requirements.txt
-├── README.md
-├── sample_chat.txt
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── data/
+│   │   └── types/
+│   │
+│   └── package.json
 │
-└── assets/
-    ├── screenshots/
-    └── logo.png
+├── backend/
+│   ├── app.py
+│   ├── parser.py
+│   ├── analyzer.py
+│   ├── preprocessor.py
+│   ├── helper.py
+│   └── utils/
+│
+└── README.md
 ```
 
 ---
 
-## Team Members
+## 🚀 Installation
 
-### Member 1
+### 1. Clone Repository
 
-- Dashboard Development
-- Data Visualization
-- Activity Analysis
-- Word Cloud
-- User Interface
-- Deployment
-
-### Member 2
-
-- Chat Parsing
-- Timeline Processing
-- Emoji Analysis
-- Sentiment Analysis
-- NLP Features
-- Testing & Optimization
+```bash
+git clone <repository-url>
+cd whatsapp-chat-analyzer
+```
 
 ---
 
-## Future Scope
+### 2. Backend Setup
 
-- AI-Based Chat Summarization
-- Relationship Analysis
-- Conversation Topic Detection
-- ChatGPT-Powered Insights
-- Multi-language Sentiment Analysis
-- Advanced User Behavior Analytics
-- Export Reports as PDF
-- WhatsApp Wrapped Style Annual Reports
-- Interactive Plotly Dashboards
-- Cloud Database Integration
+```bash
+cd backend
 
----
+python -m venv venv
 
-## Learning Outcomes
+venv\Scripts\activate
 
-Through this project, we explored:
+pip install flask flask-cors pandas emoji
+```
 
-- Data Cleaning and Preprocessing
-- Natural Language Processing
-- Sentiment Analysis
-- Data Visualization
-- Machine Learning Fundamentals
-- Streamlit Web Application Development
-- Collaborative Software Development using Git and GitHub
+Run backend:
+
+```bash
+python app.py
+```
+
+Backend runs on:
+
+```text
+http://127.0.0.1:5000
+```
 
 ---
 
-## License
+### 3. Frontend Setup
 
-This project is developed for educational and learning purposes.
+```bash
+cd frontend
+
+npm install
+```
+
+Run frontend:
+
+```bash
+npm run dev
+```
+
+Frontend runs on:
+
+```text
+http://localhost:5173
+```
+
+---
+
+## 📱 How To Use
+
+### Export WhatsApp Chat
+
+On WhatsApp:
+
+```text
+Open Chat
+↓
+More Options
+↓
+Export Chat
+↓
+Without Media
+↓
+Save .txt file
+```
+
+---
+
+### Analyze Chat
+
+```text
+Open Application
+↓
+Upload Chat
+↓
+Select WhatsApp .txt Export
+↓
+Generate Wrapped
+↓
+View Insights
+```
+
+---
+
+## 📈 Current Analytics
+
+Implemented:
+
+* Message Count
+* Word Count
+* Media Count
+* Link Count
+* Favorite Emoji
+* Monthly Timeline
+* Peak Month Detection
+* Love Score
+* Response Time
+* Romantic Message Detection
+* Green Flags
+* Red Flags
+* Achievements
+* Most Active Time
+* Radar Metrics
+
+---
+
+## 🔮 Future Enhancements
+
+* AI Generated Relationship Summary
+* Sentiment Analysis
+* Couple Compatibility Prediction
+* Chat Streak Tracking
+* PDF Report Generation
+* Story Sharing
+* Instagram Story Export
+* Multi-language Support
+
+---
+
+## 👥 Team
+
+Developed as a collaborative full-stack project using React + Flask.
+
+---
+
+## 📜 License
+
+This project is for educational and research purposes.
