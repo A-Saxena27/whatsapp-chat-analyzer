@@ -7,7 +7,7 @@ export const demoWrappedData: WrappedData = {
   totalLinks: 423,
   totalEmoji: 9234,
   loveScore: 87,
-  partner: "Arya ✨",
+  partner: "LOVER",
   favoriteEmoji: "🥰",
   favoriteEmojiCount: 198,
   youResponseTime: "2m 13s",
