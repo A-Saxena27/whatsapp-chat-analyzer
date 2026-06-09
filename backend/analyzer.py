@@ -42,6 +42,10 @@ def analyze_chat(messages):
 
     radar_data = get_radar_data(messages)
 
+    you_starts, partner_starts = get_conversation_starters(messages)
+
+    hourly_activity = get_hourly_activity(messages)
+
     return {
         "totalMessages": total_messages,
         "totalWords": total_words,
@@ -63,6 +67,9 @@ def analyze_chat(messages):
         "mostActiveTime": most_active_time,
         "youResponseTime": you_time,
         "partnerResponseTime": partner_time,
+        "youStartsChat": you_starts,
+        "partnerStartsChat": partner_starts,
+        "hourlyActivity": hourly_activity,
     }
 
 
@@ -401,7 +408,10 @@ def get_achievements(messages):
 
     return achievements
 
+\
+
 from collections import Counter
+from datetime import datetime
 
 def get_most_active_time(messages):
 
@@ -410,7 +420,6 @@ def get_most_active_time(messages):
     for msg in messages:
 
         try:
-
             dt = datetime.strptime(
                 f"{msg['date']} {msg['time']}",
                 "%d/%m/%y %I:%M %p"
@@ -442,10 +451,29 @@ def get_most_active_time(messages):
 
         return f"{display} {suffix}"
 
-        return (
-        f"{format_hour(most_active_hour)} - "
+    return (
+        f"{format_hour(most_active_hour)} – "
         f"{format_hour(next_hour)}"
     )
+
+def get_hourly_activity(messages):
+
+    activity = [0] * 24
+
+    for msg in messages:
+
+        try:
+            dt = datetime.strptime(
+                f"{msg['date']} {msg['time']}",
+                "%d/%m/%y %I:%M %p"
+            )
+
+            activity[dt.hour] += 1
+
+        except:
+            pass
+
+    return activity
 
 def get_radar_data(messages):
 
@@ -539,3 +567,39 @@ def get_radar_data(messages):
             "A": passion_score
         }
     ]
+
+from collections import defaultdict
+
+def get_conversation_starters(messages):
+
+    starters = defaultdict(int)
+
+    previous_date = None
+
+    for msg in messages:
+
+        day = msg["date"]
+
+        if day != previous_date:
+
+            starters[msg["sender"]] += 1
+
+            previous_date = day
+
+    total = sum(starters.values())
+
+    if total == 0:
+        return 50, 50
+
+    participants = list(starters.keys())
+
+    if len(participants) == 1:
+        return 100, 0
+
+    you = starters[participants[0]]
+    partner = starters[participants[1]]
+
+    return (
+        round(you * 100 / total),
+        round(partner * 100 / total)
+    )
