@@ -1,30 +1,34 @@
-function rand(min: number, max: number) {
-  return Math.random() * (max - min) + min;
-}
+type HeatmapProps = {
+  activity?: number[];
+};
 
-export default function Heatmap() {
-  const hours = Array.from({ length: 24 }, (_, i) => i);
-  const peak = [22, 23, 0, 1];
-  const vals = hours.map((h) =>
-    peak.includes(h) ? rand(0.7, 1) : rand(0, 0.4),
-  );
+export default function Heatmap({
+  activity = Array(24).fill(0),
+}: HeatmapProps) {
+  const max = Math.max(...activity, 1);
+
   return (
     <div className="w-full">
       <div className="flex gap-1 flex-wrap justify-center">
-        {hours.map((h, i) => (
-          <div
-            key={h}
-            className="rounded-md flex flex-col items-center"
-            style={{
-              width: 26,
-              height: 26,
-              background: `rgba(37,211,102,${vals[i].toFixed(2)})`,
-              boxShadow: vals[i] > 0.6 ? "0 0 8px #25D36680" : "none",
-            }}
-            title={`${h}:00`}
-          />
-        ))}
+        {activity.map((count, hour) => {
+          const opacity = count / max;
+
+          return (
+            <div
+              key={hour}
+              className="rounded-md"
+              style={{
+                width: 26,
+                height: 26,
+                background: `rgba(37,211,102,${Math.max(opacity, 0.1)})`,
+                boxShadow: opacity > 0.7 ? "0 0 8px #25D36680" : "none",
+              }}
+              title={`${hour}:00 — ${count} messages`}
+            />
+          );
+        })}
       </div>
+
       <div className="flex justify-between mt-2 text-[10px] text-white/40">
         <span>12 AM</span>
         <span>6 AM</span>

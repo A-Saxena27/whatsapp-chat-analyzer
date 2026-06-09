@@ -5,7 +5,10 @@ import Heatmap from "./shared/Heatmap";
 export default function NightOwlCard({
   data,
 }: {
-  data: { mostActiveTime: string };
+  data: {
+    mostActiveTime: string;
+    hourlyActivity: number[];
+  };
 }) {
   return (
     <div className="flex flex-col items-center justify-center h-full gap-5 px-4 text-center">
@@ -23,7 +26,7 @@ export default function NightOwlCard({
         <div className="text-xs text-white/50 mb-3 font-mono">
           Hourly Activity Heatmap
         </div>
-        <Heatmap />
+        <Heatmap {...{ activity: data.hourlyActivity }} />
       </Glass>
       <div className="text-white/40 text-xs">Certified night owl duo 🦉</div>
     </div>

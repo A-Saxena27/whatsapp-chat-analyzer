@@ -10,6 +10,7 @@ import ConversationStarterCard from "../components/wrapped/ConversationStarterCa
 import FinalWrappedCard from "../components/wrapped/FinalWrappedCard";
 import RomanticMessageCard from "../components/wrapped/RomanticMessageCard";
 import ProgressBar from "../components/common/ProgressBar";
+import FlagCard from "../components/wrapped/RedGreenFlag";
 
 const cards: ComponentType<any>[] = [
   MessageCard,
@@ -20,6 +21,7 @@ const cards: ComponentType<any>[] = [
   NightOwlCard,
   ConversationStarterCard,
   RomanticMessageCard,
+  FlagCard,
   AchievementCard,
   FinalWrappedCard,
 ];
